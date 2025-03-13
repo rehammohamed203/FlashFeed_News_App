@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity"
+    tools:context=".ui.splash.SplashActivity"
     android:padding="24dp">
 
     <ImageView
@@ -29,6 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:tint="@color/onBackground"
         android:contentDescription="route_logo"
+        android:layout_margin="16dp"
         tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
