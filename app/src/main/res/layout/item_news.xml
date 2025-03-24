@@ -1,79 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    app:strokeColor="@color/onBackground"
-    app:strokeWidth="2dp"
-    android:layout_margin="16dp"
-    app:cardCornerRadius="16dp">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="newsItem"
+            type="com.reham11203.flashfeed.api.models.news.News" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:strokeColor="@color/onBackground"
+        app:strokeWidth="2dp">
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="@+id/image"
-            app:layout_constraintTop_toTopOf="@+id/image"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            android:indeterminateTint="@color/onBackground"
-            />
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"
-            android:scaleType="centerCrop"
+            android:layout_height="match_parent">
 
-            />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/onBackground"
+                app:layout_constraintBottom_toBottomOf="@+id/image"
+                app:layout_constraintEnd_toEndOf="@+id/image"
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toTopOf="@+id/image" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_bold"
-            android:textSize="16sp"
-            android:lines="2"
-            android:maxLines="2"
-            android:textColor="@color/onBackground"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/image"
-            tools:text="aASD FGHJ KLJ GFDSA QQAW SERTYU IOI 8U76 T5R4E WQS DF GHJ" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{newsItem.urlToImage}"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
-        <TextView
-            android:id="@+id/author"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="12sp"
-            android:textColor="@color/gray"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="12dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintEnd_toStartOf="@+id/date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="aASD FGHJ KLJ GFDSA QQAW SERTYU IOI" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:lines="2"
+                android:maxLines="2"
+                android:padding="16dp"
+                android:text="@{newsItem.title}"
+                android:textColor="@color/onBackground"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                tools:text="aASD FGHJ KLJ GFDSA QQAW SERTYU IOI 8U76 T5R4E WQS DF GHJ" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="12sp"
-            android:textColor="@color/gray"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="aASD IOI" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_medium"
+                android:maxLines="1"
+                android:text="@{newsItem.author}"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                tools:text="aASD FGHJ KLJ GFDSA QQAW SERTYU IOI" />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="12dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="@{newsItem.publishedAtText}"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="aASD IOI" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

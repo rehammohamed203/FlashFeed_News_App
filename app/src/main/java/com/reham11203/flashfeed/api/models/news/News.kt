@@ -1,9 +1,10 @@
 package com.reham11203.flashfeed.api.models.news
 
-import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
+import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.google.gson.annotations.SerializedName
 import com.reham11203.flashfeed.api.models.sources.Source
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -38,5 +39,9 @@ data class News(
 		val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
 		val dateTime : Date? = publishedAt?.let{simpleDateFormat.parse(it)}
 		return dateTime?.time
+	}
+
+	fun getPublishedAtText(): String {
+		return TimeAgo.using(getPublishedAtInMillis() ?: 0)
 	}
 }

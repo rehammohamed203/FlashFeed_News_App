@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.github.marlonlom.utilities.timeago.TimeAgo
 import com.reham11203.flashfeed.api.models.news.News
 import com.reham11203.flashfeed.databinding.ItemNewsBinding
 
@@ -25,15 +23,10 @@ class NewsAdapter(var newsList: List<News?>? = null) :
 
     class ViewHolder(val itemBinding: ItemNewsBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(news: News?) {
-            itemBinding.title.text = news?.title
-            itemBinding.author.text = news?.author
+            itemBinding.newsItem = news
+            itemBinding.invalidateAll()
 
-            Glide.with(itemBinding.root)
-                .load(news?.urlToImage)
-                .into(itemBinding.image)
 
-            val formatedDate = news?.getPublishedAtInMillis()?.let { TimeAgo.using(it) }
-            itemBinding.date.text = formatedDate
         }
     }
 
