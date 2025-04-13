@@ -1,5 +1,4 @@
 package com.reham11203.flashfeed.ui.home.fragments.news
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.reham11203.flashfeed.api.models.news.News
-import com.reham11203.flashfeed.api.models.sources.Source
+import com.reham11203.domain.model.News
+import com.reham11203.domain.model.Source
 import com.reham11203.flashfeed.common.ErrorState
 import com.reham11203.flashfeed.databinding.FragmentNewsBinding
 import com.reham11203.flashfeed.ui.home.fragments.categories.Category
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
@@ -23,10 +23,6 @@ class NewsFragment : Fragment() {
     lateinit var category: Category
     val viewModel: NewsViewModel by viewModels<NewsViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,14 +82,14 @@ class NewsFragment : Fragment() {
         binding.sourcesTabs.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 val source = tab?.tag as Source?
-                source?.id?.let {
+                source?.sourceId?.let {
                     viewModel.loadNews(it)
                 }
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val source = tab?.tag as Source?
-                source?.id?.let {
+                source?.sourceId?.let {
                     viewModel.loadNews(it)
                 }
 

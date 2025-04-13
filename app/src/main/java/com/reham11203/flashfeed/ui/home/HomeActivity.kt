@@ -8,8 +8,9 @@ import com.reham11203.flashfeed.databinding.ActivityHomeBinding
 import com.reham11203.flashfeed.ui.home.fragments.categories.CategoriesFragment
 import com.reham11203.flashfeed.ui.home.fragments.categories.Category
 import com.reham11203.flashfeed.ui.home.fragments.news.NewsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityHomeBinding

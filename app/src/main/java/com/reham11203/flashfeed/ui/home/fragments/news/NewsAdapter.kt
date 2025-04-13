@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.reham11203.flashfeed.api.models.news.News
+import com.reham11203.domain.model.News
 import com.reham11203.flashfeed.databinding.ItemNewsBinding
 
 class NewsAdapter(var newsList: List<News?>? = null) :

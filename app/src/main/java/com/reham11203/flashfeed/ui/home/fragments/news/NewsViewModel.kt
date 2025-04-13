@@ -2,19 +2,21 @@ package com.reham11203.flashfeed.ui.home.fragments.news
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.reham11203.flashfeed.api.ApiManager
-import com.reham11203.flashfeed.api.models.ErrorResponse
-import com.reham11203.flashfeed.api.models.news.News
-import com.reham11203.flashfeed.api.models.news.NewsResponse
-import com.reham11203.flashfeed.api.models.sources.Source
-import com.reham11203.flashfeed.api.models.sources.SourcesResponse
+import androidx.lifecycle.viewModelScope
+import com.reham11203.domain.model.News
+import com.reham11203.domain.model.Source
+import com.reham11203.domain.usecases.GetNewsUseCase
+import com.reham11203.domain.usecases.GetSourcesUseCase
 import com.reham11203.flashfeed.common.ErrorState
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewsViewModel : ViewModel() {
+@HiltViewModel
+class NewsViewModel @Inject constructor(
+    private val getNewsUseCase: GetNewsUseCase,
+    private val getSourcesUseCase: GetSourcesUseCase
+) : ViewModel() {
 
     val showLoadingView = MutableLiveData<Boolean>(false)
     val showErrorViewLiveData = MutableLiveData<ErrorState>()
@@ -22,80 +24,41 @@ class NewsViewModel : ViewModel() {
     val newsLiveData = MutableLiveData<List<News?>?>()
     fun loadSources(categoryId: String) {
         showLoadingView.value = true
-        ApiManager.getWebServices()
-            .getSources(categoryId)
-            .enqueue(object : Callback<SourcesResponse> {
-                override fun onFailure(call: Call<SourcesResponse>, error: Throwable) {
-                    showErrorViewLiveData.value = ErrorState(
-                        errorMessage = error.localizedMessage ?: "Something went wrong",
-                        onTryAgain = {
-                            loadSources(categoryId)
-                        }
-                    )
-                }
-
-                override fun onResponse(
-                    call: Call<SourcesResponse>,
-                    response: Response<SourcesResponse>
-                ) {
-                    if (!response.isSuccessful) {
-                        val errorResponse = Gson().fromJson(
-                            response.errorBody()?.string(),
-                            SourcesResponse::class.java
-                        )
-                        val message = errorResponse.message ?: "something went wrong"
-
-                        showErrorViewLiveData.value = ErrorState(
-                            errorMessage = message,
-                            onTryAgain = {
-                                loadSources(categoryId)
-                            }
-                        )
-                        return
+        viewModelScope.launch {
+            try {
+                val sourcesList = getSourcesUseCase.getSources(categoryId)
+                sourcesLiveData.value = sourcesList
+            } catch (ex: Exception) {
+                showErrorViewLiveData.value = ErrorState(
+                    errorMessage = ex.localizedMessage ?: "Something went wrong",
+                    onTryAgain = {
+                        loadSources(categoryId)
                     }
-                    sourcesLiveData.value = response.body()?.sources
-                }
-            })
+                )
+            }
+        }
+
     }
 
     fun loadNews(sourceId: String) {
         showLoadingView.value = true
-        ApiManager.getWebServices()
-            .getNews(sourceId)
-            .enqueue(object : Callback<NewsResponse> {
-                override fun onFailure(call: Call<NewsResponse>, throwable: Throwable) {
+        viewModelScope.launch {
+            try {
+                val newsList = getNewsUseCase.invoke(sourceId)
+                newsLiveData.value = newsList
 
-                    showErrorViewLiveData.value = ErrorState(
-                        errorMessage = throwable.localizedMessage ?: "Something went wrong",
-                        onTryAgain = {
-                            loadNews(sourceId)
-                        }
-                    )
-                }
-
-                override fun onResponse(
-                    call: Call<NewsResponse>,
-                    response: Response<NewsResponse>
-                ) {
-                    if (!response.isSuccessful) {
-                        val errorResponse = Gson().fromJson(
-                            response.errorBody()?.string(),
-                            ErrorResponse::class.java
-                        )
-                        val message = errorResponse.message ?: "something went wrong"
-
-                        showErrorViewLiveData.value = ErrorState(
-                            errorMessage = message,
-                            onTryAgain = {
-                                loadNews(sourceId)
-                            }
-                        )
-                        return
+            } catch (ex: Exception) {
+                showErrorViewLiveData.value = ErrorState(
+                    errorMessage = ex.localizedMessage ?: "Something went wrong",
+                    onTryAgain = {
+                        loadNews(sourceId)
                     }
-                    newsLiveData.value = response.body()?.newsList
-                }
-            })
+                )
+            }
+
+        }
 
     }
+
 
 }
