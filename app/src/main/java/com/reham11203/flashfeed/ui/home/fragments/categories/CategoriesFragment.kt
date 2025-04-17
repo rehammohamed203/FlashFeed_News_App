@@ -5,30 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.reham11203.flashfeed.R
 import com.reham11203.flashfeed.databinding.FragmentCategoriesBinding
+import com.reham11203.flashfeed.ui.home.HomeActivity
 
 class CategoriesFragment : Fragment() {
     var _binding: FragmentCategoriesBinding? = null
     val binding get() = _binding!!
     val adapter = CategoriesAdapter(onCategoryClick = ::onCategoryClick)
 
-    companion object {
-        fun getInstance(onCategoryClickCallback: OnCategoryClickCallback): CategoriesFragment {
-            val fragment = CategoriesFragment()
-            fragment.onCategoryClickCallback = onCategoryClickCallback
-            return fragment
-        }
-    }
-
-    fun interface OnCategoryClickCallback {
-        fun onCategoryClick(category: Category)
-
-    }
-
-    private var onCategoryClickCallback: OnCategoryClickCallback? = null
     private fun onCategoryClick(category: Category) {
-        onCategoryClickCallback?.onCategoryClick(category)
+        (requireActivity() as? HomeActivity)?.onCategoryClick(category)
     }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as? HomeActivity)?.setCustomToolbarTitle(getString(R.string.app_name))
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

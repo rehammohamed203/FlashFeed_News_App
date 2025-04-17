@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.reham11203.domain.model.News
 import com.reham11203.domain.model.Source
 import com.reham11203.flashfeed.common.ErrorState
 import com.reham11203.flashfeed.databinding.FragmentNewsBinding
-import com.reham11203.flashfeed.ui.home.fragments.categories.Category
+import com.reham11203.flashfeed.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,8 +21,8 @@ class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
-    lateinit var category: Category
     val viewModel: NewsViewModel by viewModels<NewsViewModel>()
+    private val args: NewsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,19 +32,19 @@ class NewsFragment : Fragment() {
         return binding.root
     }
 
-    companion object {
-        fun getInstance(category: Category): NewsFragment {
-            val fragment = NewsFragment()
-            fragment.category = category
-            return fragment
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initNewsRecyclerView()
-        viewModel.loadSources(category.id)
+        viewModel.loadSources(args.category.id)
         observeLiveData()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (requireActivity() as? HomeActivity)?.setCustomToolbarTitle(getString(args.category.title))
+
     }
 
     private fun observeLiveData() {
