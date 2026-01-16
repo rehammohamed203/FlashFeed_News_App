@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "FlashFeed"
 include(":app")
- 
+include(":data")
+include(":domain")

@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">FlashFeed</string>
+    <string name="home">Home</string>
+    <string name="loading_message">Loading…\nPlease wait</string>
+    <string name="try_again">Try again</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+    <string name="go_to_home">Go To Home</string>
+    <string name="business">Business</string>
+    <string name="entertainment">Entertainment</string>
+    <string name="sports">Sports</string>
+    <string name="general">General</string>
+    <string name="health">Health</string>
+    <string name="science">Science</string>
+    <string name="technology">Technology</string>
+    <string name="news_app">News App</string>
+    <string name="good_morning_here_is_some_news_for_you">Good Morning\nHere is some news for you</string>
+
 </resources>

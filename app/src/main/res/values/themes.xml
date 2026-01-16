@@ -1,9 +1,24 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.FlashFeed" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorTertiary">@color/primary</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:colorForeground">@color/onBackground</item>
+        <item name="android:statusBarColor">@color/primary</item>
+
     </style>
 
     <style name="Theme.FlashFeed" parent="Base.Theme.FlashFeed" />
+
+    <style name="Theme.FlashFeed.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.FlashFeed.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.FlashFeed.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

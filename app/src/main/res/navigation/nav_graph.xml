@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/categoriesFragment">
+
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.categories.CategoriesFragment"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categoriesFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.news.NewsFragment"
+        tools:layout="@layout/fragment_news">
+        <argument
+            android:name="category"
+            app:argType="com.reham11203.flashfeed.ui.home.fragments.categories.Category" />
+        <action
+            android:id="@+id/action_newsFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languagesFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.settings.language.LanguagesFragment"
+        tools:layout="@layout/fragment_languages" />
+    <fragment
+        android:id="@+id/themesFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.settings.theme.ThemesFragment"
+        tools:layout="@layout/fragment_themes" />
+    <fragment
+        android:id="@+id/newsDetailsFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.newsDetails.NewsDetailsFragment"
+        tools:layout="@layout/fragment_news_details" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.reham11203.flashfeed.ui.home.fragments.search.SearchFragment"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
+</navigation>
