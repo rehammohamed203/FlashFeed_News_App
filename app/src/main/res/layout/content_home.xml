@@ -9,9 +9,12 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <FrameLayout
-        android:id="@+id/news_fragment_container"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

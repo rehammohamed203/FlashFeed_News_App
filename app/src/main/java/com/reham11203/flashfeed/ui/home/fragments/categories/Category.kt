@@ -1,16 +1,19 @@
 package com.reham11203.flashfeed.ui.home.fragments.categories
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.reham11203.flashfeed.R
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Category(
     val id: String,
     @StringRes
     val title: Int,
     @DrawableRes
     val image: Int
-) {
+) : Parcelable {
     //
     companion object {
         fun getCategories(): List<Category> = listOf(
